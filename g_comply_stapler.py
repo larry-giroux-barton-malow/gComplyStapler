@@ -33,22 +33,6 @@ def package_pdfs(folder_path):
     os.makedirs(packages_dir, exist_ok=True)
 
     # Staple PDFs into multi-page PDFs and write to 'packages' directory
-    # for prefix, files in packages.items():
-    #     output_pdf_path = os.path.join(packages_dir, f"{prefix}.pdf")
-    #     output_pdf = fitz.open()
-
-    #     for pdf_path in files:
-    #         input_pdf = fitz.open(pdf_path)
-    #         for page_num in range(len(input_pdf)):
-    #             page = input_pdf.load_page(page_num)
-    #             rect = fitz.Rect(0, 0, 612, 792)  # Set page size to 8.5" x 11"
-    #             new_page = output_pdf.new_page(width=rect.width, height=rect.height)
-    #             new_page.show_pdf_page(rect, input_pdf, page_num)  # Scale page content to fit the new size
-
-    #     output_pdf.save(output_pdf_path)
-    #     output_pdf.close()
-
-    # Staple PDFs into multi-page PDFs and write to 'packages' directory
     for prefix, files in packages.items():
         output_pdf_path = os.path.join(packages_dir, f"{prefix}.pdf")
         output_pdf = fitz.open()
@@ -57,8 +41,9 @@ def package_pdfs(folder_path):
             input_pdf = fitz.open(pdf_path)
             for page_num in range(len(input_pdf)):
                 page = input_pdf.load_page(page_num)
-                # Set page size to 8.5" x 11" with 1-inch margins
-                rect = fitz.Rect(36, 36, 576, 756)  # 72 points = 1 inch
+                # Set page size to 8.5" x 11" with 1/2-inch margins
+                rect = fitz.Rect(36, 36, 576, 756)  # 36 points = 1/2 inch
+                # rect = fitz.Rect(0, 0, 612, 792)  # Set page size to 8.5" x 11" # No margins example
                 new_page = output_pdf.new_page(width=612, height=792)
                 new_page.show_pdf_page(rect, input_pdf, page_num)  # Scale page content to fit the new size with margins
 

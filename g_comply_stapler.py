@@ -12,6 +12,7 @@ def arbitrary_sort(files = [], search_keys = ["_Red_","_Ylw_","_Grn_","_Chk_"]):
     return sorted_files            
 
 def package_pdfs(folder_path):
+    print("running...")
     # Create a dictionary to hold the packages
     packages = {}
 
@@ -49,6 +50,9 @@ def package_pdfs(folder_path):
 
         output_pdf.save(output_pdf_path)
         output_pdf.close()
+
+        print(f"Created: {output_pdf_path}")
+    print("All packages created successfully.")
 
 
 # Example usage, folder passed as an argument

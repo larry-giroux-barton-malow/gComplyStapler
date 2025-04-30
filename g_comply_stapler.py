@@ -42,9 +42,10 @@ def package_pdfs(folder_path):
             input_pdf = fitz.open(pdf_path)
             for page_num in range(len(input_pdf)):
                 page = input_pdf.load_page(page_num)
-                # Set page size to 8.5" x 11" with 1/2-inch margins
-                rect = fitz.Rect(36, 36, 576, 756)  # 36 points = 1/2 inch
+                # Set page size to 8.5" x 11"
                 # rect = fitz.Rect(0, 0, 612, 792)  # Set page size to 8.5" x 11" # No margins example
+                # rect = fitz.Rect(36, 36, 576, 756) # 1/2 inch margins
+                rect = fitz.Rect(12, 12, 600, 780) # 1/6 inch margins?
                 new_page = output_pdf.new_page(width=612, height=792)
                 new_page.show_pdf_page(rect, input_pdf, page_num)  # Scale page content to fit the new size with margins
 
@@ -56,5 +57,12 @@ def package_pdfs(folder_path):
 
 
 # Example usage, folder passed as an argument
-folder_path = sys.argv[1] if len(sys.argv) > 1 else "C:\\Users\\lgiroux\\OneDrive - Barton Malow\\Desktop\\gComply Example PDFs" # Example
-package_pdfs(folder_path)
+if __name__ == "__main__":
+    # Check if a folder path is provided as an argument
+    if len(sys.argv) < 2:
+        print("Usage: python g_comply_stapler.py <folder_path>")
+        sys.exit(1)
+
+    # Get the folder path from command line arguments
+    folder_path = sys.argv[1] if len(sys.argv) > 1 else "C:\\Users\\lgiroux\\OneDrive - Barton Malow\\Desktop\\gComply Example PDFs" # Example
+    package_pdfs(folder_path)
